@@ -58,11 +58,7 @@ A simple and interactive **Inventory Management System** built using **HTML, CSS
 
 ---
 
-## 📸 Screenshots
 
-(Add screenshots here after uploading images)
-
----
 
 ## 🔮 Future Improvements
 
@@ -73,20 +69,6 @@ A simple and interactive **Inventory Management System** built using **HTML, CSS
 
 ---
 
-## 👩‍💻 Author
-
-**Dharanya Doss**
-
-* GitHub: https://github.com/your-username
-* LinkedIn: https://linkedin.com/in/your-profile
-
----
-
-## 📜 License
-
-This project is open-source and available under the **MIT License**.
-
----
 
 ✨ *Feel free to fork, modify, and improve this project!*
 
