@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dell Inventory Management System</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f3f4f6;
+    margin: 0;
+    padding: 30px;
+    color: #222;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 25px 30px;
+  }
+  h1 {
+    color: #007db8;
+    text-align: center;
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 18px;
+    margin-top: 25px;
+    border-bottom: 2px solid #007db8;
+    padding-bottom: 5px;
+  }
+  .row {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  button {
+    background: #007db8;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #005f8a;
+  }
+  ul#inventoryList {
+    list-style: none;
+    padding: 0;
+  }
+  ul#inventoryList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9fafb;
+    margin: 5px 0;
+    padding: 8px 12px;
+    border-radius: 5px;
+  }
+  .removeBtn {
+    background: #d9534f;
+  }
+  .removeBtn:hover {
+    background: #b52b27;
+  }
+  #stockResult {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .in-stock { color: #1a7f37; }
+  .out-stock { color: #d9534f; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Dell Inventory Management System</h1>
+
+  <h2>Add Product</h2>
+  <div class="row">
+    <input type="text" id="productInput" placeholder="Enter Dell product name">
+    <button onclick="addProduct()">Add</button>
+  </div>
+
+  <h2>Current Inventory</h2>
+  <ul id="inventoryList"></ul>
+
+  <h2>Check Availability</h2>
+  <div class="row">
+    <input type="text" id="checkInput" placeholder="Enter product name to check">
+    <button onclick="checkAvailability()">Check</button>
+  </div>
+  <div id="stockResult"></div>
+</div>
+
+<script>
+  
+  var inventory = ["Dell XPS 13", "Dell Inspiron 15", "Dell Latitude 7420", "Dell Alienware m15"];
+
+  
+  function displayInventory() {
+    var list = document.getElementById("inventoryList");
+    list.innerHTML = "";
+    for (var i = 0; i < inventory.length; i++) {
+      var item = document.createElement("li");
+
+      var nameSpan = document.createElement("span");
+      nameSpan.textContent = inventory[i];
+
+      var removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.className = "removeBtn";
+      removeBtn.setAttribute("data-index", i);
+      removeBtn.onclick = function () {
+        var idx = parseInt(this.getAttribute("data-index"));
+        removeProduct(idx);
+      };
+
+      item.appendChild(nameSpan);
+      item.appendChild(removeBtn);
+      list.appendChild(item);
+    }
+  }
+
+  
+  function addProduct() {
+    var input = document.getElementById("productInput");
+    var name = input.value.trim();
+    if (name === "") {
+      alert("Please enter a product name.");
+      return;
+    }
+    inventory.push(name);
+    input.value = "";
+    displayInventory();
+  }
+
+  
+  function removeProduct(index) {
+    inventory.splice(index, 1);
+    displayInventory();
+  }
+
+  
+  function checkAvailability() {
+    var checkInput = document.getElementById("checkInput");
+    var name = checkInput.value.trim();
+    var resultDiv = document.getElementById("stockResult");
+
+    if (name === "") {
+      alert("Please enter a product name to check.");
+      return;
+    }
+
+    var found = false;
+    for (var i = 0; i < inventory.length; i++) {
+      if (inventory[i].toLowerCase() === name.toLowerCase()) {
+        found = true;
+        break;
+      }
+    }
+
+    if (found) {
+      resultDiv.textContent = "\"" + name + "\" is currently IN STOCK.";
+      resultDiv.className = "in-stock";
+    } else {
+      resultDiv.textContent = "\"" + name + "\" is currently OUT OF STOCK.";
+      resultDiv.className = "out-stock";
+    }
+  }
+
+ 
+  displayInventory();
+</script>
+</body>
+</html>
